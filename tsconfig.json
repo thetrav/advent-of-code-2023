@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
       "module": "NodeNext",
+      "esModuleInterop": true,
       "noImplicitAny": true,
       "removeComments": true,
       "preserveConstEnums": true,
