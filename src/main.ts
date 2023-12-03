@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 
 import { sumLines } from './1'
-import { checkGames } from './2'
+import { checkGames, powerGames } from './2'
 
 function runFile(fileName: string, fn: (line: string[]) => number) {
   const data = fs.readFileSync(fileName, 'utf8')
@@ -11,3 +11,4 @@ function runFile(fileName: string, fn: (line: string[]) => number) {
 
 runFile('./input/1', sumLines)
 runFile('./input/2', checkGames)
+runFile('./input/2', powerGames)

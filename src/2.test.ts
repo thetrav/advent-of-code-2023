@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import { parse, checkGame, checkGamesFor } from './2'
+import { parse, checkGame, checkGamesFor, fewestCubes, setPowerSum } from './2'
 const gameDefs = [
   'Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green',
   'Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue',
@@ -16,6 +16,8 @@ const bag = {
 }
 const possible = games.map((game) => checkGame(game, bag))
 
+const fewest = games.map(fewestCubes)
+
 describe('day two', () => {
   test('parser', () => {
     expect(games[0].id).toBe(1)
@@ -29,5 +31,17 @@ describe('day two', () => {
 
   test('checkGamesFor', () => {
     expect(checkGamesFor(games, bag)).toBe(8)
+  })
+
+  test('fewest cubes', () => {
+    expect(fewest[0]).toEqual({ red: 4, green: 2, blue: 6 })
+    expect(fewest[1]).toEqual({ red: 1, green: 3, blue: 4 })
+    expect(fewest[2]).toEqual({ red: 20, green: 13, blue: 6 })
+    expect(fewest[3]).toEqual({ red: 14, green: 3, blue: 15 })
+    expect(fewest[4]).toEqual({ red: 6, green: 3, blue: 2 })
+  })
+
+  test('powers', () => {
+    expect(setPowerSum(fewest)).toBe(2286)
   })
 })

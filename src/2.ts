@@ -49,16 +49,42 @@ export function checkGame(game: Game, bag: Set): boolean {
   return true
 }
 
+const add = (a: number, b: number) => a + b
+
 export function checkGamesFor(games: Game[], bag: Set): number {
-  let sum = 0
-  for (const game of games) {
-    if (checkGame(game, bag)) {
-      sum += game.id
-    }
-  }
-  return sum
+  return games
+    .filter((g) => checkGame(g, bag))
+    .map((g) => g.id)
+    .reduce(add, 0)
 }
 
 export function checkGames(lines: string[]): number {
   return checkGamesFor(lines.map(parse), { red: 12, green: 13, blue: 14 })
+}
+
+export function fewestCubes(game: Game): Set {
+  const max = Math.max
+  const minSet = {
+    red: 0,
+    green: 0,
+    blue: 0,
+  }
+  for (const set of game.sets) {
+    minSet.red = max(set.red, minSet.red)
+    minSet.green = max(set.green, minSet.green)
+    minSet.blue = max(set.blue, minSet.blue)
+  }
+  return minSet
+}
+
+export function setPower(set: Set): number {
+  return set.red * set.blue * set.green
+}
+
+export function setPowerSum(set: Set[]): number {
+  return set.map(setPower).reduce(add, 0)
+}
+
+export function powerGames(lines: string[]): number {
+  return lines.map(parse).map(fewestCubes).map(setPower).reduce(add, 0)
 }
