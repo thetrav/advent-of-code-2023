@@ -1,5 +1,3 @@
-import fs from 'node:fs'
-
 interface IMap {
   [key: string]: string
 }
@@ -64,10 +62,9 @@ export function parse(s: string): number {
   return parseInt(first + last)
 }
 
-export function runFile(fileName: string): number {
-  const data = fs.readFileSync(fileName, 'utf8')
+export function sumLines(lines: string[]): number {
   let sum = 0
-  for (let line of data.split('\n')) {
+  for (let line of lines) {
     sum += parse(line)
   }
   return sum
